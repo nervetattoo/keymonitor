@@ -13,6 +13,9 @@ class KeymonitorTest extends PHPUnit_Framework_TestCase {
         $this->assertTrue(class_exists('Keymonitor'));
     }
 
+    /**
+     * Test HTTP availability
+     */
     public function testHTTPServiceIsUp() {
         $m = new Keymonitor;
         $url = 'http://google.com';
@@ -22,15 +25,31 @@ class KeymonitorTest extends PHPUnit_Framework_TestCase {
         $this->assertFalse($m->http->exists($url2));
         $this->assertFalse($m->http->exists($url3));
     }
-    public function testOk() {
+    public function testHTTPOk() {
         // Test for http code 200 etc
         $m = new Keymonitor;
         $url = 'http://www.vg.no';
         $this->assertTrue($m->http->ok($url));
     }
-    public function testRedirect() {
+    public function testHTTPRedirect() {
         $m = new Keymonitor;
         $url = 'http://google.com';
         $this->assertTrue($m->http->redirect($url));
+    }
+    public function testHTTPAcceptableResponseTime() {
+        $m = new Keymonitor;
+        $url = 'http://raymondjulin.com';
+        $this->assertTrue($m->http->respondWithinTime($url, 0.5));
+        $this->assertFalse($m->http->respondWithinTime($url, 0.001));
+    }
+
+    /**
+     * Check system health
+     */
+    public function testSystemLoad() {
+        $m = new Keymonitor;
+        // Test that load is under 0.5
+        $this->assertTrue($m->system->load(2.5));
+        $this->assertFalse($m->system->load(0.000001));
     }
 }

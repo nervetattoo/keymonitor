@@ -14,7 +14,8 @@ class Keymonitor {
      * Constructor sets up some default mediators
      */
     function __construct() {
-        $this->registerMediator('http', new KeymonitorHTTP());
+        $this->registerMediator('http', new KeymonitorMediatorHTTP());
+        $this->registerMediator('system', new KeymonitorMediatorSystem());
     }
     
     /**
