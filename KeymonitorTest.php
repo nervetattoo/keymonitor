@@ -1,5 +1,5 @@
 <?php // vim:set ts=4 sw=4 et:
-require_once('Keymonitor.php');
+require_once("autoload.php");
 
 /**
  * An oversimplified testcase for keymonitor
