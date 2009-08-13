@@ -40,4 +40,7 @@ class Keymonitor {
         if ($this->mediators[$mediator])
             return $this->mediators[$mediator];
     }
+    public function suite() {
+        return new KeymonitorSuite();
+    }
 }
