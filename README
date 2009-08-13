@@ -1,0 +1,5 @@
+Mål:
+* Overvåke tjenester (protokoller? http:ja, ftp? andre?)
+* Sette forventet respons (callbackish)
+  * Rapportere avvik: Respondere på forskjellige avvik
+* Kan plugges inn i eksisterende kode for å rapportere ved funnet avvik i kode
