@@ -6,34 +6,16 @@
  * @package Keymonitor
  */
 abstract class KeymonitorReporter {
-    $this->messages = array();
+    protected $messages = array();
     
     /**
-     * Accept a new message and keep it in the stack
+     * Accept a message to the report
      *
      * @return void
      * @param string $message
      */
-    public function push($message) {
+    public function attach($message) {
         $this->messages[] = $message;
-    }
-    
-    /**
-     * Clean up message stack
-     *
-     * @return void
-     */
-    public function clean() {
-        $this->messages = array();
-    }
-    
-    /**
-     * Return message stack
-     *
-     * @return array
-     */
-    protected function messages() {
-        return $this->messages;
     }
     
     /**
@@ -41,5 +23,5 @@ abstract class KeymonitorReporter {
      *
      * @return mixed
      */
-    public function generate();
+    abstract public function generate();
 }

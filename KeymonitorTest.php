@@ -43,6 +43,13 @@ class KeymonitorTest extends PHPUnit_Framework_TestCase {
         $this->assertFalse($m->http->respondWithinTime($url, 0.001));
     }
 
+    public function testContains() {
+        $m = new Keymonitor;
+        $url = 'http://raymondjulin.com';
+        $this->assertTrue($m->http->contains($url, '/Raymond Julin/'));
+        $this->assertFalse($m->http->contains($url, '/does not exist/'));
+    }
+
     /**
      * Check system health
      */

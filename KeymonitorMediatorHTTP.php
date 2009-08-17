@@ -23,6 +23,7 @@ class KeymonitorMediatorHTTP extends KeymonitorMediator {
         $url = $args[0];
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true); 
+        //curl_setopt($curl, CURLOPT_READFUNCTION, array($this,'readContent')); 
         curl_exec($curl);
         $response = curl_getinfo($curl);
         curl_close($curl);
@@ -42,6 +43,24 @@ class KeymonitorMediatorHTTP extends KeymonitorMediator {
                 return !in_array($this->result()->code, $this->codes['exists']);
             case 'respondWithinTime':
                 return ($this->result()->responseTime <= $args[1]);
+            case 'contains':
+                return $this->_contains($args[1],file_get_contents($url));
         }
+    }
+    
+    /**
+     * Verify that site contains one or a set of regexes
+     *
+     * @return boolean
+     * @param mixed $tests
+     */
+    private function _contains($tests, $body) {
+        if (!is_array($tests))
+            $tests = array($tests);
+        foreach ($tests as $test) {
+            if (preg_match($test, $body) == 0)
+                return false;
+        }
+        return true;
     }
 }

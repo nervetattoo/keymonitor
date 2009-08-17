@@ -8,6 +8,6 @@
  */
 class KeymonitorReporterMock extends KeymonitorReporter {
     public function generate() {
-        return $this->messages();
+        return $this->messages;
     }
 }

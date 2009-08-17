@@ -28,4 +28,18 @@ class KeymonitorSuite {
         }
         return $stat;
     }
+    
+    /**
+     * Generate a report
+     *
+     * @return void
+     * @param KeymonitorReporter
+     */
+    public function report(KeymonitorReporter $reporter) {
+        foreach ($this->tests as $t) {
+            if (!$t['result'])
+                $reporter->attach($t['message']);
+        }
+        return $reporter;
+    }
 }

@@ -16,10 +16,14 @@ class KeymonitorTestSuite extends PHPUnit_Framework_TestCase {
         $suite = $m->suite()
             ->true($m->mock->true(), 'Test 1 failed')
             ->true($m->mock->true(), 'Test 2 failed');
-        $this->assertTrue($suite->result());
+        $report = $suite->report(new KeymonitorReporterMock);
+        $status = $report->generate();
+        $this->assertTrue(empty($status));
         $suite = $m->suite()
             ->true($m->mock->false(), 'Test 1 failed')
             ->false($m->mock->true(), 'Test 2 failed');
-        $this->assertFalse($suite->result());
+        $report = $suite->report(new KeymonitorReporterMock);
+        $status = $report->generate();
+        $this->assertFalse(empty($status));
     }
 }

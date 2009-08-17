@@ -3,3 +3,27 @@ Mål:
 * Sette forventet respons (callbackish)
   * Rapportere avvik: Respondere på forskjellige avvik
 * Kan plugges inn i eksisterende kode for å rapportere ved funnet avvik i kode
+
+Usage:
+
+Monitor web services:
+
+$m = new Keymonitor;
+// Test that an url is up and running (giving 200 f.ex)
+$m->http->ok($url);
+// Test against some regexes in body
+$m->http->contains($url, array('/regex/','/regex2/'));
+
+Monitor app internals in a uniform way:
+$m = new Keymonitor;
+$suite = $m->suite()
+    ->true($var == 'foo', '$var should be foo')
+    ->true($actionStatus, 'Failed to do stuff');
+
+// Logg fails to file
+$report = $suite->report(new KeymonitorReportFile('/var/log/foo'));
+$report->generate();
+
+// Logg fails to email
+$report = $suite->report(new KeymonitorReportEmail("foo@bar.no"));
+$report->generate();
